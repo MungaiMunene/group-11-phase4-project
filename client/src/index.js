@@ -4,7 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Create the root for React 18
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// Render the app inside the root, wrapped with React.StrictMode for additional development checks
 root.render(
   <React.StrictMode>
     <App />

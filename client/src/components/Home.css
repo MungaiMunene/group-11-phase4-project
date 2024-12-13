@@ -1,0 +1,14 @@
+/* src/components/Home.css */
+.Home {
+    padding: 20px;
+    text-align: center;
+    background-color: #f4f4f9;
+  }
+  
+  .Home h1 {
+    color: #007b5f;
+  }
+  
+  .Home p {
+    color: #333;
+  }

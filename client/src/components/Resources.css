@@ -1,0 +1,31 @@
+/* src/components/Resources.css */
+.Resources {
+    padding: 20px;
+  }
+  
+  .resources-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .resource-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1 1 30%;
+  }
+  
+  .resource-card h3 {
+    color: #007b5f;
+  }
+  
+  .resource-card a {
+    text-decoration: none;
+    color: #007b5f;
+  }
+  
+  .resource-card a:hover {
+    text-decoration: underline;
+  }

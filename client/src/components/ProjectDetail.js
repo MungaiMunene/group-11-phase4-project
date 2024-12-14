@@ -1,80 +1,45 @@
-// src/components/SubmitProject.js
+// src/components/ProjectDetail.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import './ProjectDetail.css';
-function SubmitProject() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [status, setStatus] = useState('');
-  const [location, setLocation] = useState('');
+
+function ProjectDetail() {
+  const { id } = useParams(); // Extract project ID from the URL
+  const [project, setProject] = useState(null);
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const projectData = { title, description, status, location };
-
-    fetch('https://api.renewableconnect.com/projects', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(projectData),
-    })
+  useEffect(() => {
+    // Fetch project details based on the project ID from the URL
+    fetch(`https://api.renewableconnect.com/projects/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log('Project submitted successfully:', data);
-        // Redirect to homepage or project list page after submission
+        setProject(data);
       })
       .catch((error) => {
-        setError('Error submitting project.');
-        console.error('Error submitting project:', error);
+        setError('Error fetching project details.');
+        console.error('Error fetching project details:', error);
       });
-  };
+  }, [id]); // Re-fetch when the ID changes
 
   return (
-    <div className="SubmitProject">
-      <h2>Submit a New Project</h2>
+    <div className="ProjectDetail">
       {error && <p className="error">{error}</p>}
-      <form onSubmit={handleSubmit}>
+      
+      {project ? (
         <div>
-          <label>Title:</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
+          <h2>{project.title}</h2>
+          <p><strong>Description:</strong> {project.description}</p>
+          <p><strong>Status:</strong> {project.status}</p>
+          <p><strong>Location:</strong> {project.location}</p>
+          <p><strong>Created At:</strong> {new Date(project.createdAt).toLocaleDateString()}</p>
+          {/* You can add more details if necessary */}
         </div>
-        <div>
-          <label>Description:</label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Status:</label>
-          <input
-            type="text"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Location:</label>
-          <input
-            type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Submit Project</button>
-      </form>
+      ) : (
+        <p>Loading project details...</p>
+      )}
     </div>
   );
 }
 
-export default SubmitProject;
+export default ProjectDetail;

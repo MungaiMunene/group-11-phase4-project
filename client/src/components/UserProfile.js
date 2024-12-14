@@ -1,20 +1,27 @@
-// src/components/UserProfile.js
-
 import React, { useState, useEffect } from 'react';
 import './UserProfile.css';  // Import the CSS file
+
 function UserProfile() {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(null); // Add error state
 
   useEffect(() => {
     // Fetch user profile details from the backend
     fetch('https://api.renewableconnect.com/user/profile')
       .then((response) => response.json())
       .then((data) => setUser(data))
-      .catch((error) => console.error('Error fetching user profile:', error));
+      .catch((error) => {
+        setError('Error fetching user profile. Please try again later.');
+        console.error('Error fetching user profile:', error);
+      });
   }, []);
 
+  if (error) {
+    return <p className="error">{error}</p>; // Display error if there's any
+  }
+
   if (!user) {
-    return <p>Loading user profile...</p>;
+    return <p>Loading user profile...</p>; // Show loading message if no data is loaded yet
   }
 
   return (
@@ -31,8 +38,7 @@ function UserProfile() {
         {user.profile_picture && (
           <div className="profile-picture">
             <img src={user.profile_picture} alt="Profile" />
-            {/* Optionally, provide an option to update the picture */}
-            <button>Change Profile Picture</button>
+            <button>Change Profile Picture</button> {/* Add functionality to change the picture */}
           </div>
         )}
       </div>

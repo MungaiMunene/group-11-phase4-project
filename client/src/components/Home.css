@@ -1,14 +1,56 @@
 /* src/components/Home.css */
 .Home {
-    padding: 20px;
-    text-align: center;
-    background-color: #f4f4f9;
-  }
-  
-  .Home h1 {
-    color: #007b5f;
-  }
-  
-  .Home p {
-    color: #333;
-  }
+  padding: 20px;
+  text-align: center;
+  background-color: #f4f4f9; /* Light gray background */
+}
+
+.Home h1 {
+  color: #007b5f; /* Dark green color for the title */
+}
+
+.Home p {
+  color: #333; /* Dark gray text for paragraphs */
+}
+
+.projects-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.project-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  width: 250px;
+  text-align: left;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.project-card h3 {
+  font-size: 1.2em;
+  color: #007b5f;
+}
+
+.project-card p {
+  font-size: 1em;
+  color: #555;
+}
+
+.project-card .project-link {
+  color: #007b5f;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.project-card .project-link:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 20px;
+}

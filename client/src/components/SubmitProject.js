@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import './SubmitProject.css'; // Import the CSS file
+
 function SubmitProject() {
   return (
     <div className="SubmitProject">

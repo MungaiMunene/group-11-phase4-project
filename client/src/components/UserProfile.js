@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './UserProfile.css';  // Import the CSS file
+import './UserProfile.css'; // Import the CSS file
 
 function UserProfile() {
   const [user, setUser] = useState(null);
@@ -8,7 +8,12 @@ function UserProfile() {
   useEffect(() => {
     // Fetch user profile details from the backend
     fetch('https://api.renewableconnect.com/user/profile')
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then((data) => setUser(data))
       .catch((error) => {
         setError('Error fetching user profile. Please try again later.');
@@ -16,14 +21,17 @@ function UserProfile() {
       });
   }, []);
 
+  // Render error state
   if (error) {
-    return <p className="error">{error}</p>; // Display error if there's any
+    return <p className="error">{error}</p>; // Display error message
   }
 
+  // Render loading state
   if (!user) {
     return <p>Loading user profile...</p>; // Show loading message if no data is loaded yet
   }
 
+  // Render user profile once data is fetched
   return (
     <div className="UserProfile">
       <h2>Your Profile</h2>
